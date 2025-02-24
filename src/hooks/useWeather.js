@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useSearchHistory } from "./useSearchHistory";
 
-const API_KEY = import.meta.env.VITE_RAPIDAPI_KEY;
+const API_KEY = "156b4afc91c52df6d850fa3c0ab62392";
 
 export const useWeather = () => {
   const [weather, setWeather] = useState(null);
