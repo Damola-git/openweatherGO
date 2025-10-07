@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useSearchHistory } from "./useSearchHistory";
 
-const API_KEY = import.meta.env.VITE_RAPIDAPI_KEY;
+const API_KEY = import.meta.env.VITE_OPENWEATHERMAP_KEY;
 
 export const useWeather = () => {
   const [weather, setWeather] = useState(null);
@@ -14,13 +14,20 @@ export const useWeather = () => {
     setLoading(true);
     setError("");
 
+    if (!API_KEY) {
+      setError("Missing OpenWeatherMap API key. Please check your .env file.");
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await axios.get(
-        `https://open-weather13.p.rapidapi.com/city/${city}/EN`,
+        "https://api.openweathermap.org/data/2.5/weather",
         {
-          headers: {
-            "x-rapidapi-host": "open-weather13.p.rapidapi.com",
-            "x-rapidapi-key": API_KEY,
+          params: {
+            q: city,
+            units: "metric",
+            appid: API_KEY,
           },
         }
       );
